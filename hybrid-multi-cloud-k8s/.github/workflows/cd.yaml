@@ -1,0 +1,32 @@
+name: Continuous Deployment
+
+on:
+  push:
+    branches: [ main ]
+  # Optionally, you might want to require the CI workflow to succeed before running CD
+  # jobs:
+  #   build:
+  #     runs-on: ubuntu-latest
+  #     steps:
+  #       - name: Checkout code
+  #         uses: actions/checkout@v2
+  #       - name: Deploy
+  #         run: |
+  #           # Add your deployment commands here
+  #           echo "Deploying application"
+  #           # Example for deploying to a server via SSH:
+  #           # ssh user@server 'cd /path/to/application && git pull && ./restart.sh'
+  # requires:
+  #   - Continuous Integration
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build-and-test] # This line should be uncommented if you want to ensure CI passes before CD
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Deploy
+        run: |
+          echo "Deploying application"
+          # Insert your deployment commands here

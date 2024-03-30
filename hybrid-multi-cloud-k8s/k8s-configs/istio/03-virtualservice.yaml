@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: my-microservice
+spec:
+  hosts:
+  - "example.com"
+  gateways:
+  - my-microservice-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /my-microservice
+    route:
+    - destination:
+        host: my-microservice
+        port:
+          number: 8080
